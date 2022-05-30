@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.eraseAllButton = new System.Windows.Forms.ToolStripButton();
@@ -37,7 +38,6 @@
             this.inkQtyButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.shapesDropdown = new System.Windows.Forms.ToolStripDropDownButton();
-            this.abcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShapeNrTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.runButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -50,6 +50,8 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.fasdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -104,6 +106,7 @@
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(36, 67);
             this.saveButton.Text = "toolStripButton2";
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // printButton
             // 
@@ -132,22 +135,13 @@
             // shapesDropdown
             // 
             this.shapesDropdown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.shapesDropdown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.abcToolStripMenuItem});
             this.shapesDropdown.Image = ((System.Drawing.Image)(resources.GetObject("shapesDropdown.Image")));
             this.shapesDropdown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.shapesDropdown.Name = "shapesDropdown";
             this.shapesDropdown.Size = new System.Drawing.Size(45, 67);
             this.shapesDropdown.Text = "toolStripDropDownButton1";
             this.shapesDropdown.ToolTipText = "shapesDropdown";
-            this.shapesDropdown.DropDownOpened += new System.EventHandler(this.shapesDropdown_DropDownOpened);
-            this.shapesDropdown.Click += new System.EventHandler(this.shapesDropdown_Click);
-            // 
-            // abcToolStripMenuItem
-            // 
-            this.abcToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.abcToolStripMenuItem.Name = "abcToolStripMenuItem";
-            this.abcToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.shapesDropdown.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.shapesDropdown_DropDownItemClicked);
             // 
             // ShapeNrTextBox
             // 
@@ -216,6 +210,7 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // toolStripTextBox1
             // 
@@ -235,6 +230,17 @@
             this.testToolStripMenuItem.Size = new System.Drawing.Size(176, 38);
             this.testToolStripMenuItem.Text = "test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "shape64.png");
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
             // 
             // Form1
             // 
@@ -278,6 +284,7 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripMenuItem fasdfToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abcToolStripMenuItem;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
