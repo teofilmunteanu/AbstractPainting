@@ -79,10 +79,10 @@
             this.toolStripSeparator5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.toolStrip1.Size = new System.Drawing.Size(517, 70);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // eraseAllButton
             // 
@@ -125,7 +125,6 @@
             this.inkQtyButton.Name = "inkQtyButton";
             this.inkQtyButton.Size = new System.Drawing.Size(36, 67);
             this.inkQtyButton.Text = "toolStripButton4";
-            this.inkQtyButton.Click += new System.EventHandler(this.inkQtyButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -156,6 +155,7 @@
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(36, 67);
             this.runButton.Text = "toolStripButton5";
+            this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
             // toolStripSeparator3
             // 
@@ -179,7 +179,6 @@
             this.fillButton.Name = "fillButton";
             this.fillButton.Size = new System.Drawing.Size(36, 67);
             this.fillButton.Text = "toolStripButton7";
-            this.fillButton.Click += new System.EventHandler(this.fillButton_Click);
             // 
             // toolStripSeparator4
             // 
@@ -209,7 +208,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(460, 460);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // toolStripTextBox1
@@ -229,7 +227,6 @@
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
             this.testToolStripMenuItem.Size = new System.Drawing.Size(176, 38);
             this.testToolStripMenuItem.Text = "test";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -254,7 +251,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Tablou abstract";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
