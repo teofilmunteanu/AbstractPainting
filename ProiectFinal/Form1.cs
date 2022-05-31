@@ -13,6 +13,9 @@ namespace ProiectFinal
 {
     public partial class Form1 : Form
     {
+        public static Graphics g;
+        public static Bitmap bmp;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,14 +24,20 @@ namespace ProiectFinal
             shapesInitializer();
         }
 
+        void reset()
+        {
+            Brush bgBrush = new SolidBrush(Color.White);
+
+            Rectangle imageRectangle = new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height);
+            g.FillRectangle(bgBrush, imageRectangle);
+        }
+
         void imgInitializer()
         {
-            Manager.bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            g = Graphics.FromImage(bmp);
 
-            Manager.g = Graphics.FromImage(Manager.bmp);
-            Rectangle imageRectangle = new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height);
-            Manager.g.FillRectangle(Manager.mainBrush, imageRectangle);
-
+            reset();
             pictureBox1.Refresh();
         }
 
@@ -69,11 +78,38 @@ namespace ProiectFinal
         /*EVENTS*/
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Manager.bmp, 0, 0, pictureBox1.Width, pictureBox1.Height);
+            e.Graphics.DrawImage(bmp, 0, 0, pictureBox1.Width, pictureBox1.Height);
         }
 
         private void runButton_Click(object sender, EventArgs e)
         {
+            reset();
+            try
+            {
+                if(Manager.SelectedShape == "")
+                {
+                    throw new Exception("Alegeti o forma!");
+                }
+
+                int nr;
+                if(!int.TryParse(ShapeNrTextBox.Text, out nr))
+                {
+                    throw new Exception("Introduceti un numar de forme!");
+                }
+                Manager.NrOfShapes = nr;
+
+                if (Manager.NrOfShapes < 1 || Manager.NrOfShapes > 5000)
+                {
+                    throw new Exception("Numarul de forme este minim 1 si maxim 5000!");
+                }
+
+                Manager.drawShapes();        
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+            
             pictureBox1.Refresh();
         }
 
@@ -95,22 +131,31 @@ namespace ProiectFinal
         {
             if (saveFileDialog.FileName != "")
             {
-                Manager.bmp.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                bmp.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         }
 
         private void shapesDropdown_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            Manager.SelectedShape = e.ClickedItem.Text;
+
+            Color colorInactive = Color.White;
+            Color colorActive = Color.LightGray;
+
             foreach (ToolStripItem item in shapesDropdown.DropDownItems)
             {
-                item.BackColor = Color.White;
+                item.BackColor = colorInactive;
             }
-                
-            e.ClickedItem.BackColor = Color.LightGray;
-
-            shapesDropdown.Image = e.ClickedItem.Image;
+   
+            e.ClickedItem.BackColor = colorActive;
         }
 
-        
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                runButton_Click(null, null);
+            }
+        }
     }
 }

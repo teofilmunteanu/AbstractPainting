@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.eraseAllButton = new System.Windows.Forms.ToolStripButton();
@@ -50,7 +49,6 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.fasdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -91,7 +89,7 @@
             this.eraseAllButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.eraseAllButton.Name = "eraseAllButton";
             this.eraseAllButton.Size = new System.Drawing.Size(36, 67);
-            this.eraseAllButton.Text = "toolStripButton1";
+            this.eraseAllButton.ToolTipText = "Clear";
             // 
             // toolStripSeparator1
             // 
@@ -105,7 +103,7 @@
             this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(36, 67);
-            this.saveButton.Text = "toolStripButton2";
+            this.saveButton.ToolTipText = "Save";
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // printButton
@@ -115,7 +113,7 @@
             this.printButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printButton.Name = "printButton";
             this.printButton.Size = new System.Drawing.Size(36, 67);
-            this.printButton.Text = "toolStripButton3";
+            this.printButton.ToolTipText = "Print";
             // 
             // inkQtyButton
             // 
@@ -124,7 +122,7 @@
             this.inkQtyButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.inkQtyButton.Name = "inkQtyButton";
             this.inkQtyButton.Size = new System.Drawing.Size(36, 67);
-            this.inkQtyButton.Text = "toolStripButton4";
+            this.inkQtyButton.ToolTipText = "InkConsumption";
             // 
             // toolStripSeparator2
             // 
@@ -138,14 +136,16 @@
             this.shapesDropdown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.shapesDropdown.Name = "shapesDropdown";
             this.shapesDropdown.Size = new System.Drawing.Size(45, 67);
-            this.shapesDropdown.Text = "toolStripDropDownButton1";
-            this.shapesDropdown.ToolTipText = "shapesDropdown";
+            this.shapesDropdown.ToolTipText = "Shapes";
             this.shapesDropdown.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.shapesDropdown_DropDownItemClicked);
             // 
             // ShapeNrTextBox
             // 
+            this.ShapeNrTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ShapeNrTextBox.Name = "ShapeNrTextBox";
             this.ShapeNrTextBox.Size = new System.Drawing.Size(100, 70);
+            this.ShapeNrTextBox.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ShapeNrTextBox.ToolTipText = "Number of shapes";
             // 
             // runButton
             // 
@@ -155,6 +155,7 @@
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(36, 67);
             this.runButton.Text = "toolStripButton5";
+            this.runButton.ToolTipText = "Run";
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
             // toolStripSeparator3
@@ -170,6 +171,7 @@
             this.colorPickerButton.Name = "colorPickerButton";
             this.colorPickerButton.Size = new System.Drawing.Size(36, 67);
             this.colorPickerButton.Text = "toolStripButton6";
+            this.colorPickerButton.ToolTipText = "Color Pallete";
             // 
             // fillButton
             // 
@@ -179,6 +181,7 @@
             this.fillButton.Name = "fillButton";
             this.fillButton.Size = new System.Drawing.Size(36, 67);
             this.fillButton.Text = "toolStripButton7";
+            this.fillButton.ToolTipText = "Fill";
             // 
             // toolStripSeparator4
             // 
@@ -193,6 +196,7 @@
             this.infoButton.Name = "infoButton";
             this.infoButton.Size = new System.Drawing.Size(36, 67);
             this.infoButton.Text = "toolStripButton8";
+            this.infoButton.ToolTipText = "Info";
             // 
             // toolStripSeparator5
             // 
@@ -228,13 +232,6 @@
             this.testToolStripMenuItem.Size = new System.Drawing.Size(176, 38);
             this.testToolStripMenuItem.Text = "test";
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "shape64.png");
-            // 
             // saveFileDialog
             // 
             this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
@@ -251,6 +248,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Tablou abstract";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -280,7 +278,6 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripMenuItem fasdfToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }

@@ -7,31 +7,51 @@ using System.Drawing;
 
 namespace ProiectFinal
 {
-    abstract class Figura
+    public abstract class Figura
     {
-        protected Rectangle r;
-        Bitmap bmp;
+        protected Point origin, final;
 
-        public Figura()
-        {
+        protected Pen shapePen = new Pen(Color.Black, 2f);
 
-        }
+        abstract public void deseneaza();
 
-        abstract public void deseneaza(Point origin, Point final);
+        abstract public double daLungime();
 
     }
 
-    class Linie : Figura
+    public class Linie : Figura
     {
-        override public void deseneaza(Point origin, Point final)
+        public Linie(Point origin, Point final)
         {
+            this.origin = origin;
+            this.final = final;   
+        }
 
+        override public void deseneaza()
+        {
+            Form1.g.DrawLine(shapePen, origin, final);
+        }
+
+        override public double daLungime()
+        {
+            return Math.Sqrt(Math.Pow(origin.X - final.X, 2) + Math.Pow(origin.Y - final.Y, 2));
         }
     }
 
     //class Dreptunghi : Figura
     //{
-
+    //    Size size;
+    //    public Dreptunghi(Point origin, Point final)
+    //    {
+    //        this.origin = origin;
+    //        size = new Size(Math.Abs(final.X - origin.X), Math.Abs(final.Y - origin.Y));
+    //    }
+         
+    //    override public void deseneaza()
+    //    {
+    //        Rectangle r = new Rectangle(origin, size);
+    //        Manager.g.DrawRectangle(shapePen, r);
+    //    }
     //}
 
     //class Elipsa : Figura
