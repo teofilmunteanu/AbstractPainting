@@ -30,7 +30,7 @@ namespace ProiectFinal
             fillColor = Color.Silver;
 
             string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
-            fillCursor = new Cursor(projectPath + "\\resources\\fill2.cur");
+            fillCursor = new Cursor("..\\..\\..\\resources\\fill2.cur");
         }
 
         void reset()
