@@ -246,6 +246,7 @@
             // 
             this.colorDialog1.AnyColor = true;
             this.colorDialog1.Color = System.Drawing.Color.Silver;
+            this.colorDialog1.FullOpen = true;
             // 
             // Form1
             // 

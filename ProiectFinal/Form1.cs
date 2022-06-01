@@ -25,7 +25,7 @@ namespace ProiectFinal
             imgInitializer();
             shapesInitializer();
 
-            Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 8f);
+            Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 2f);
             fillCursor = new Cursor("resources\\fill2.cur");
             fillColor = Color.Silver;
         }
@@ -166,8 +166,18 @@ namespace ProiectFinal
 
         private void colorPickerButton_Click(object sender, EventArgs e)
         {
-            colorDialog1.ShowDialog();
-            fillColor = colorDialog1.Color;
+            //colorDialog1.ShowDialog();
+
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                while (colorDialog1.Color.ToArgb() == Figura.ShapePen.Color.ToArgb())
+                {
+                    MessageBox.Show("Formele nu pot fi negre!");
+                    colorDialog1.ShowDialog();
+                }
+                fillColor = colorDialog1.Color;
+            }
+                
         }
 
         private void fillButton_Click(object sender, EventArgs e)
