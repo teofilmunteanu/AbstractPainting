@@ -31,7 +31,7 @@ namespace ProiectFinal
                 Point B = sides[rand.Next(0, sides.Count())];
 
                 Linie l = new Linie(A,B);
-                l.deseneaza();
+                l.deseneaza();  
             }
         }
         
@@ -44,6 +44,44 @@ namespace ProiectFinal
                     break;
                 case "Drepthunghi":
                     break;
+            }
+        }
+
+        static bool inside(Point p)
+        {
+            return p.X >= 0 && p.X < Form1.bmp.Width && p.Y >= 0 && p.Y < Form1.bmp.Height;
+        }
+        static bool validPoint(Point origin, Point p)
+        {
+            if (Form1.bmp.GetPixel(p.X, p.Y) == Figura.ShapePen.Color ||
+                Form1.bmp.GetPixel(p.X, p.Y) == Form1.bmp.GetPixel(origin.X, origin.Y))
+            {
+                return false;
+            }
+                
+            return true;
+        }
+        public static void fill(Point origin, Color fillColor)
+        {
+            Point[] directions = { new Point(-1, 0), new Point(0, -1), new Point(1, 0), new Point(0, 1) };
+            Queue<Point> pointsToFill = new Queue<Point>();
+            pointsToFill.Enqueue(origin);
+
+            int pointsCount = 0;
+            while(pointsToFill.Any())
+            {
+                pointsCount++;
+                Point current = pointsToFill.Dequeue();
+                Form1.bmp.SetPixel(current.X, current.Y, fillColor);
+
+                foreach (Point d in directions)
+                {
+                    Point neighbour = new Point(current.X + d.X, current.Y + d.Y);
+                    if (inside(neighbour) && validPoint(current, neighbour) && !pointsToFill.Contains(neighbour))
+                    {
+                        pointsToFill.Enqueue(neighbour);
+                    }
+                }
             }
         }
     }

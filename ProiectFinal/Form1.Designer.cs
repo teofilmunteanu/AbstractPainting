@@ -49,7 +49,8 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.fasdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -172,9 +173,11 @@
             this.colorPickerButton.Size = new System.Drawing.Size(36, 67);
             this.colorPickerButton.Text = "toolStripButton6";
             this.colorPickerButton.ToolTipText = "Color Pallete";
+            this.colorPickerButton.Click += new System.EventHandler(this.colorPickerButton_Click);
             // 
             // fillButton
             // 
+            this.fillButton.BackColor = System.Drawing.Color.Gainsboro;
             this.fillButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.fillButton.Image = ((System.Drawing.Image)(resources.GetObject("fillButton.Image")));
             this.fillButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -182,6 +185,7 @@
             this.fillButton.Size = new System.Drawing.Size(36, 67);
             this.fillButton.Text = "toolStripButton7";
             this.fillButton.ToolTipText = "Fill";
+            this.fillButton.Click += new System.EventHandler(this.fillButton_Click);
             // 
             // toolStripSeparator4
             // 
@@ -207,12 +211,14 @@
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(29, 98);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(460, 460);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             // 
             // toolStripTextBox1
             // 
@@ -232,9 +238,14 @@
             this.testToolStripMenuItem.Size = new System.Drawing.Size(176, 38);
             this.testToolStripMenuItem.Text = "test";
             // 
-            // saveFileDialog
+            // saveFileDialog1
             // 
-            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
+            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
+            // 
+            // colorDialog1
+            // 
+            this.colorDialog1.AnyColor = true;
+            this.colorDialog1.Color = System.Drawing.Color.Silver;
             // 
             // Form1
             // 
@@ -278,6 +289,7 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripMenuItem fasdfToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }

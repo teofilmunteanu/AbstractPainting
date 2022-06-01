@@ -15,6 +15,8 @@ namespace ProiectFinal
     {
         public static Graphics g;
         public static Bitmap bmp;
+        Cursor fillCursor;
+        Color fillColor;
 
         public Form1()
         {
@@ -22,6 +24,10 @@ namespace ProiectFinal
 
             imgInitializer();
             shapesInitializer();
+
+            Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 2f);
+            fillCursor = new Cursor("resources\\fill2.cur");
+            fillColor = Color.Silver;
         }
 
         void reset()
@@ -117,21 +123,21 @@ namespace ProiectFinal
         {
             try
             {
-                saveFileDialog.DefaultExt = "jpeg";
-                saveFileDialog.FileName = "Figura.jpeg";
-                saveFileDialog.Filter = "JPEG files (*.jpeg)|*.jpeg|All files (*.*)|*.*";
-                saveFileDialog.FilterIndex = 1;
-                saveFileDialog.RestoreDirectory = true;
-                saveFileDialog.ShowDialog();
+                saveFileDialog1.DefaultExt = "jpeg";
+                saveFileDialog1.FileName = "Figura.jpeg";
+                saveFileDialog1.Filter = "JPEG files (*.jpeg)|*.jpeg|All files (*.*)|*.*";
+                saveFileDialog1.FilterIndex = 1;
+                saveFileDialog1.RestoreDirectory = true;
+                saveFileDialog1.ShowDialog();
             }
             catch (Exception) { }
         }
 
         private void saveFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            if (saveFileDialog.FileName != "")
+            if (saveFileDialog1.FileName != "")
             {
-                bmp.Save(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                bmp.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
         }
 
@@ -156,6 +162,36 @@ namespace ProiectFinal
             {
                 runButton_Click(null, null);
             }
+        }
+
+        private void colorPickerButton_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            fillColor = colorDialog1.Color;
+        }
+
+        private void fillButton_Click(object sender, EventArgs e)
+        {
+            if(pictureBox1.Cursor != fillCursor)
+            {
+                pictureBox1.Cursor = fillCursor;
+                toolStrip1.Items[toolStrip1.Items.IndexOf(fillButton)].BackColor = Color.Silver;
+            }
+            else
+            {
+                pictureBox1.Cursor = Cursors.Default;
+                toolStrip1.Items[toolStrip1.Items.IndexOf(fillButton)].BackColor = Color.Gainsboro;
+            }    
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(pictureBox1.Cursor == fillCursor)
+            {
+                Manager.fill(e.Location, fillColor);
+                pictureBox1.Refresh();
+            }
+            
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ProiectFinal
     {
         protected Point origin, final;
 
-        protected Pen shapePen = new Pen(Color.Black, 2f);
+        public static Pen ShapePen { get; set; }
 
         abstract public void deseneaza();
 
@@ -29,7 +29,7 @@ namespace ProiectFinal
 
         override public void deseneaza()
         {
-            Form1.g.DrawLine(shapePen, origin, final);
+            Form1.g.DrawLine(ShapePen, origin, final);
         }
 
         override public double daLungime()
