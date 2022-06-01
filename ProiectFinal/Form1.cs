@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace ProiectFinal
 {
@@ -26,8 +27,10 @@ namespace ProiectFinal
             shapesInitializer();
 
             Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 2f);
-            fillCursor = new Cursor("resources\\fill2.cur");
             fillColor = Color.Silver;
+
+            string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+            fillCursor = new Cursor(projectPath + "\\resources\\fill2.cur");
         }
 
         void reset()
@@ -166,8 +169,6 @@ namespace ProiectFinal
 
         private void colorPickerButton_Click(object sender, EventArgs e)
         {
-            //colorDialog1.ShowDialog();
-
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 while (colorDialog1.Color.ToArgb() == Figura.ShapePen.Color.ToArgb())
