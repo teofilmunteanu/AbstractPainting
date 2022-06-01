@@ -25,7 +25,7 @@ namespace ProiectFinal
             imgInitializer();
             shapesInitializer();
 
-            Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 2f);
+            Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 8f);
             fillCursor = new Cursor("resources\\fill2.cur");
             fillColor = Color.Silver;
         }

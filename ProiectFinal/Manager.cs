@@ -72,7 +72,11 @@ namespace ProiectFinal
             {
                 pointsCount++;
                 Point current = pointsToFill.Dequeue();
-                Form1.bmp.SetPixel(current.X, current.Y, fillColor);
+
+                if(Form1.bmp.GetPixel(current.X, current.Y) != Figura.ShapePen.Color)
+                {
+                    Form1.bmp.SetPixel(current.X, current.Y, fillColor);
+                }
 
                 foreach (Point d in directions)
                 {
