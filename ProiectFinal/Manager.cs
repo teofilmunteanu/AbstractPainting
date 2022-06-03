@@ -53,7 +53,7 @@ namespace ProiectFinal
         }
         static bool validPoint(Point origin, Point p)
         {
-            if (Form1.bmp.GetPixel(p.X, p.Y) == Figura.ShapePen.Color ||
+            if (Form1.bmp.GetPixel(p.X, p.Y) == Figura.ShapeColor ||
                 Form1.bmp.GetPixel(p.X, p.Y) == Form1.bmp.GetPixel(origin.X, origin.Y))
             {
                 return false;
@@ -73,7 +73,7 @@ namespace ProiectFinal
                 pointsCount++;
                 Point current = pointsToFill.Dequeue();
 
-                if(Form1.bmp.GetPixel(current.X, current.Y) != Figura.ShapePen.Color)
+                if(Form1.bmp.GetPixel(current.X, current.Y) != Figura.ShapeColor)
                 {
                     Form1.bmp.SetPixel(current.X, current.Y, fillColor);
                 }

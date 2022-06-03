@@ -10,8 +10,25 @@ namespace ProiectFinal
     public abstract class Figura
     {
         protected Point origin, final;
+        protected Pen shapePen;
+        public static Color ShapeColor { get; protected set; }
+        public static float ShapeWidth { get; protected set; }
 
-        public static Pen ShapePen { get; set; }
+        public Figura()
+        {
+            ShapeColor = Color.FromArgb(255, 0, 0, 0);
+            ShapeWidth = 2;
+
+            shapePen = new Pen(ShapeColor, ShapeWidth);
+        }
+
+        public Figura(Color color, float width)
+        {
+            ShapeColor = color;
+            ShapeWidth = width;
+
+            shapePen = new Pen(ShapeColor, ShapeWidth);
+        }
 
         abstract public void deseneaza();
 
@@ -29,7 +46,7 @@ namespace ProiectFinal
 
         override public void deseneaza()
         {
-            Form1.g.DrawLine(ShapePen, origin, final);
+            Form1.g.DrawLine(shapePen, origin, final);
         }
 
         override public double daLungime()

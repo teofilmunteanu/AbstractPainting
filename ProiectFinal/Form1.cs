@@ -18,6 +18,7 @@ namespace ProiectFinal
         public static Bitmap bmp;
         Cursor fillCursor;
         Color fillColor;
+        bool imageSaved;
 
         public Form1()
         {
@@ -26,11 +27,21 @@ namespace ProiectFinal
             imgInitializer();
             shapesInitializer();
 
-            Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 2f);
+            //Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 2f);
             fillColor = Color.Silver;
 
-            string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
-            fillCursor = new Cursor("..\\..\\..\\resources\\fill2.cur");
+            try
+            {
+                string projectPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+                fillCursor = new Cursor("..\\..\\..\\resources\\fill2.cur");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
+            imageSaved = true;
         }
 
         void reset()
@@ -90,6 +101,22 @@ namespace ProiectFinal
             e.Graphics.DrawImage(bmp, 0, 0, pictureBox1.Width, pictureBox1.Height);
         }
 
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            if (imageSaved)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                DialogResult raspuns = MessageBox.Show("Schimbari nesalvate! Inchideti?", "Confirmare", MessageBoxButtons.YesNo);
+                if (raspuns == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
+            }
+        }
+
         private void runButton_Click(object sender, EventArgs e)
         {
             reset();
@@ -112,7 +139,8 @@ namespace ProiectFinal
                     throw new Exception("Numarul de forme este minim 1 si maxim 5000!");
                 }
 
-                Manager.drawShapes();        
+                Manager.drawShapes();
+                imageSaved = false;
             }
             catch(Exception exc)
             {
@@ -141,6 +169,8 @@ namespace ProiectFinal
             if (saveFileDialog1.FileName != "")
             {
                 bmp.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                imageSaved = true;
             }
         }
 
@@ -171,7 +201,7 @@ namespace ProiectFinal
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
-                while (colorDialog1.Color.ToArgb() == Figura.ShapePen.Color.ToArgb())
+                while (colorDialog1.Color.ToArgb() == Figura.ShapeColor.ToArgb())
                 {
                     MessageBox.Show("Formele nu pot fi negre!");
                     colorDialog1.ShowDialog();
@@ -200,9 +230,15 @@ namespace ProiectFinal
             if(pictureBox1.Cursor == fillCursor)
             {
                 Manager.fill(e.Location, fillColor);
+                imageSaved = false;
                 pictureBox1.Refresh();
             }
-            
+        }
+
+        private void inkQtyButton_Click(object sender, EventArgs e)
+        {
+            InkCalculator iq = InkCalculator.getInkCalculator();
+            iq.Visible = true;
         }
     }
 }

@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.eraseAllButton = new System.Windows.Forms.ToolStripButton();
+            this.closeButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveButton = new System.Windows.Forms.ToolStripButton();
             this.printButton = new System.Windows.Forms.ToolStripButton();
@@ -61,7 +61,7 @@
             this.toolStrip1.BackColor = System.Drawing.Color.Gainsboro;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.eraseAllButton,
+            this.closeButton,
             this.toolStripSeparator1,
             this.saveButton,
             this.printButton,
@@ -83,14 +83,15 @@
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // eraseAllButton
+            // closeButton
             // 
-            this.eraseAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.eraseAllButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseAllButton.Image")));
-            this.eraseAllButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.eraseAllButton.Name = "eraseAllButton";
-            this.eraseAllButton.Size = new System.Drawing.Size(36, 67);
-            this.eraseAllButton.ToolTipText = "Clear";
+            this.closeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.closeButton.Image = ((System.Drawing.Image)(resources.GetObject("closeButton.Image")));
+            this.closeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(36, 67);
+            this.closeButton.ToolTipText = "Clear";
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -124,6 +125,7 @@
             this.inkQtyButton.Name = "inkQtyButton";
             this.inkQtyButton.Size = new System.Drawing.Size(36, 67);
             this.inkQtyButton.ToolTipText = "InkConsumption";
+            this.inkQtyButton.Click += new System.EventHandler(this.inkQtyButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -269,9 +271,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton eraseAllButton;
+        private System.Windows.Forms.ToolStripButton closeButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton saveButton;
         private System.Windows.Forms.ToolStripButton printButton;
