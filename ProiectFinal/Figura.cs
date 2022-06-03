@@ -30,7 +30,7 @@ namespace ProiectFinal
             shapePen = new Pen(ShapeColor, ShapeWidth);
         }
 
-        abstract public void deseneaza();
+        abstract public void deseneaza(Graphics g);
 
         abstract public double daLungime();
 
@@ -44,9 +44,9 @@ namespace ProiectFinal
             this.final = final;   
         }
 
-        override public void deseneaza()
+        override public void deseneaza(Graphics g)
         {
-            Form1.g.DrawLine(shapePen, origin, final);
+            g.DrawLine(shapePen, origin, final);
         }
 
         override public double daLungime()

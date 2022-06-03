@@ -14,12 +14,17 @@ namespace ProiectFinal
 {
     public partial class Form1 : Form
     {
-        public static Graphics g;
-        public static Bitmap bmp;
-        Cursor fillCursor;
-        Color fillColor;
+        Bitmap bmp;
+        Manager mng;
+
         bool imageSaved;
 
+        string selectedShape;
+        int nrOfShapes;
+
+        Cursor fillCursor;
+        Color fillColor;
+        
         public Form1()
         {
             InitializeComponent();
@@ -27,7 +32,6 @@ namespace ProiectFinal
             imgInitializer();
             shapesInitializer();
 
-            //Figura.ShapePen = new Pen(Color.FromArgb(255,0,0,0), 2f);
             fillColor = Color.Silver;
 
             try
@@ -39,25 +43,20 @@ namespace ProiectFinal
             {
                 MessageBox.Show(ex.Message);
             }
-            
 
             imageSaved = true;
         }
 
-        void reset()
-        {
-            Brush bgBrush = new SolidBrush(Color.White);
-
-            Rectangle imageRectangle = new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height);
-            g.FillRectangle(bgBrush, imageRectangle);
-        }
-
         void imgInitializer()
         {
-            bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            g = Graphics.FromImage(bmp);
 
-            reset();
+            //Manager.Bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            //Manager.G = Graphics.FromImage(Manager.Bmp);
+
+            bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            mng = new Manager(bmp);
+            mng.reset();
+
             pictureBox1.Refresh();
         }
 
@@ -68,7 +67,6 @@ namespace ProiectFinal
             shapesDropdown.DropDownItems.Add("Linie");
             shapesDropdown.DropDownItems.Add("Dreptunghi");
             shapesDropdown.DropDownItems.Add("Elipsa");
-            //select linie by default
 
             foreach (ToolStripItem item in shapesDropdown.DropDownItems)
             {
@@ -119,27 +117,25 @@ namespace ProiectFinal
 
         private void runButton_Click(object sender, EventArgs e)
         {
-            reset();
+            mng.reset();
             try
             {
-                if(Manager.SelectedShape == "")
+                if(selectedShape == "")
                 {
                     throw new Exception("Alegeti o forma!");
                 }
 
-                int nr;
-                if(!int.TryParse(ShapeNrTextBox.Text, out nr))
+                if(!int.TryParse(ShapeNrTextBox.Text, out nrOfShapes))
                 {
                     throw new Exception("Introduceti un numar de forme!");
                 }
-                Manager.NrOfShapes = nr;
 
-                if (Manager.NrOfShapes < 1 || Manager.NrOfShapes > 5000)
+                if (nrOfShapes < 1 || nrOfShapes > 5000)
                 {
                     throw new Exception("Numarul de forme este minim 1 si maxim 5000!");
                 }
 
-                Manager.drawShapes();
+                mng.drawShapes(nrOfShapes, selectedShape);
                 imageSaved = false;
             }
             catch(Exception exc)
@@ -176,7 +172,7 @@ namespace ProiectFinal
 
         private void shapesDropdown_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Manager.SelectedShape = e.ClickedItem.Text;
+            selectedShape = e.ClickedItem.Text;
 
             Color colorInactive = Color.White;
             Color colorActive = Color.LightGray;
@@ -189,9 +185,9 @@ namespace ProiectFinal
             e.ClickedItem.BackColor = colorActive;
         }
 
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        private void ShapeNrTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char)Keys.Enter)
             {
                 runButton_Click(null, null);
             }
@@ -229,7 +225,7 @@ namespace ProiectFinal
         {
             if(pictureBox1.Cursor == fillCursor)
             {
-                Manager.fill(e.Location, fillColor);
+                mng.fill(e.Location, fillColor);
                 imageSaved = false;
                 pictureBox1.Refresh();
             }

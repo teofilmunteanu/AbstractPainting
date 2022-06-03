@@ -149,6 +149,7 @@
             this.ShapeNrTextBox.Size = new System.Drawing.Size(100, 70);
             this.ShapeNrTextBox.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ShapeNrTextBox.ToolTipText = "Number of shapes";
+            this.ShapeNrTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ShapeNrTextBox_KeyPress);
             // 
             // runButton
             // 
@@ -262,7 +263,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Tablou abstract";
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

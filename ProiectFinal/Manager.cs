@@ -7,22 +7,38 @@ using System.Drawing;
 
 namespace ProiectFinal
 {
-    static class Manager
+    class Manager
     {
-        public static int NrOfShapes { get; set; }
+        //public static Graphics G { get; set; }
+        //public static Bitmap Bmp { get; set; }
+        Graphics g;
+        Bitmap bmp;
 
-        public static string SelectedShape { get; set; } = "";
+        public Manager(Bitmap b)
+        {
+            bmp = b;
+            g = Graphics.FromImage(bmp);
+        }
+        //public static void reset()
+        public void reset()
+        {
+            Brush bgBrush = new SolidBrush(Color.White);
 
-        static void randomLines()
+            Rectangle imageRectangle = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            g.FillRectangle(bgBrush, imageRectangle);
+        }
+
+        //static void randomLines(int nrOfShapes)
+        void randomLines(int nrOfShapes)
         {
             var rand = new Random();
 
-            for (int i= 0; i < NrOfShapes; i++)
+            for (int i= 0; i < nrOfShapes; i++)
             {
-                Point leftPoint = new Point(rand.Next(0, Form1.bmp.Height), 0);
-                Point downPoint = new Point(Form1.bmp.Height, rand.Next(0, Form1.bmp.Width));
-                Point rightPoint = new Point(rand.Next(0, Form1.bmp.Height), Form1.bmp.Width);
-                Point upPoint = new Point(0, rand.Next(0, Form1.bmp.Width));
+                Point leftPoint = new Point(rand.Next(0, bmp.Height), 0);
+                Point downPoint = new Point(bmp.Height, rand.Next(0, bmp.Width));
+                Point rightPoint = new Point(rand.Next(0, bmp.Height), bmp.Width);
+                Point upPoint = new Point(0, rand.Next(0, bmp.Width));
 
                 List<Point> sides = new List<Point>() { leftPoint, downPoint, rightPoint, upPoint};
 
@@ -31,37 +47,41 @@ namespace ProiectFinal
                 Point B = sides[rand.Next(0, sides.Count())];
 
                 Linie l = new Linie(A,B);
-                l.deseneaza();  
+                l.deseneaza(g);  
             }
         }
-        
-        public static void drawShapes()
+
+        //public static void drawShapes(int nrOfShapes, string selectedShape)
+        public void drawShapes(int nrOfShapes, string selectedShape)
         {
-            switch(SelectedShape)
+            switch(selectedShape)
             {
                 case "Linie":
-                    randomLines();
+                    randomLines(nrOfShapes);
                     break;
                 case "Drepthunghi":
                     break;
             }
         }
 
-        static bool inside(Point p)
+        //static bool inside(Point p)
+        bool inside(Point p)
         {
-            return p.X >= 0 && p.X < Form1.bmp.Width && p.Y >= 0 && p.Y < Form1.bmp.Height;
+            return p.X >= 0 && p.X < bmp.Width && p.Y >= 0 && p.Y < bmp.Height;
         }
-        static bool validPoint(Point origin, Point p)
+        //static bool validPoint(Point origin, Point p)
+        bool validPoint(Point origin, Point p)
         {
-            if (Form1.bmp.GetPixel(p.X, p.Y) == Figura.ShapeColor ||
-                Form1.bmp.GetPixel(p.X, p.Y) == Form1.bmp.GetPixel(origin.X, origin.Y))
+            if (bmp.GetPixel(p.X, p.Y) == Figura.ShapeColor ||
+                bmp.GetPixel(p.X, p.Y) == bmp.GetPixel(origin.X, origin.Y))
             {
                 return false;
             }
                 
             return true;
         }
-        public static void fill(Point origin, Color fillColor)
+        //public static void fill(Point origin, Color fillColor)
+        public void fill(Point origin, Color fillColor)
         {
             Point[] directions = { new Point(-1, 0), new Point(0, -1), new Point(1, 0), new Point(0, 1) };
             Queue<Point> pointsToFill = new Queue<Point>();
@@ -73,9 +93,9 @@ namespace ProiectFinal
                 pointsCount++;
                 Point current = pointsToFill.Dequeue();
 
-                if(Form1.bmp.GetPixel(current.X, current.Y) != Figura.ShapeColor)
+                if(bmp.GetPixel(current.X, current.Y) != Figura.ShapeColor)
                 {
-                    Form1.bmp.SetPixel(current.X, current.Y, fillColor);
+                    bmp.SetPixel(current.X, current.Y, fillColor);
                 }
 
                 foreach (Point d in directions)
