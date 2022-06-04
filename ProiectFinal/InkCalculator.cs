@@ -13,6 +13,8 @@ namespace ProiectFinal
     public partial class InkCalculator : Form
     {
         private static InkCalculator? instance = null;
+        string sideLength, inkConsumption;
+
         private InkCalculator()
         {
             InitializeComponent();
@@ -32,9 +34,17 @@ namespace ProiectFinal
             instance = null;
         }
 
-        private void InkCalculator_Load(object sender, EventArgs e)
+        private void input_TextChanged(object sender, EventArgs e)
         {
+            sideLength = getInkCalculator().printLengthBox.Text.ToString();
+            inkConsumption = getInkCalculator().inkConsumptionBox.Text.ToString();
 
+            double sL, iC;
+            if (double.TryParse(sideLength, out sL) && double.TryParse(inkConsumption, out iC))
+            {
+                //Dictionary<char, double> consumptions;
+            }
         }
+        //mng.CalculateInk(); -- singleton
     }
 }

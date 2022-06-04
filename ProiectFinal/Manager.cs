@@ -13,6 +13,8 @@ namespace ProiectFinal
         //public static Bitmap Bmp { get; set; }
         Graphics g;
         Bitmap bmp;
+        double R, G, B;
+        double C, M, Y, K;
 
         public Manager(Bitmap b)
         {
@@ -22,11 +24,11 @@ namespace ProiectFinal
         //public static void reset()
         public void reset()
         {
-            Brush bgBrush = new SolidBrush(Color.White);
-
-            Rectangle imageRectangle = new Rectangle(0, 0, bmp.Width, bmp.Height);
-            g.FillRectangle(bgBrush, imageRectangle);
+            Color bgColor = Color.White;
+            g.Clear(bgColor);
         }
+
+        ///////////////////////////////////////////void randomShapes(int nrOfShapes)
 
         //static void randomLines(int nrOfShapes)
         void randomLines(int nrOfShapes)
@@ -89,15 +91,17 @@ namespace ProiectFinal
             Queue<Point> pointsToFill = new Queue<Point>();
             pointsToFill.Enqueue(origin);
 
-            int pointsCount = 0;
             while(pointsToFill.Any())
             {
-                pointsCount++;
                 Point current = pointsToFill.Dequeue();
 
                 if(bmp.GetPixel(current.X, current.Y) != Figura.ShapeColor)
                 {
                     bmp.SetPixel(current.X, current.Y, fillColor);
+
+                    R += fillColor.R / 255;
+                    G += fillColor.G / 255;
+                    B += fillColor.B / 255;
                 }
 
                 foreach (Point d in directions)
@@ -108,7 +112,38 @@ namespace ProiectFinal
                         pointsToFill.Enqueue(neighbour);
                     }
                 }
-            }
+            }   
         }
+
+        public Dictionary<char, double> CalculateInk(double sideLength, double inkConsumption)
+        {
+            var consumption = new Dictionary<char, double>();
+
+            K = 1 - Math.Max(Math.Max(R, G), B);
+
+            if(K == 1)
+            {
+                C = M = Y = 0;
+            }
+            else
+            {
+                C = (1 - R - K) / (1 - K);
+                M = (1 - G - K) / (1 - K);
+                Y = (1 - B - K) / (1 - K);
+            }
+
+            double S = sideLength * sideLength;
+            double cT = S / inkConsumption;
+
+            consumption['C'] = cT * C / (C + M + Y + K);
+            consumption['M'] = cT * M / (C + M + Y + K);
+            consumption['Y'] = cT * Y / (C + M + Y + K);
+            consumption['k'] = cT * K / (C + M + Y + K);
+
+            return consumption;
+        }
+
+
+
     }
 }

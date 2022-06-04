@@ -207,6 +207,7 @@
             this.infoButton.Size = new System.Drawing.Size(36, 67);
             this.infoButton.Text = "toolStripButton8";
             this.infoButton.ToolTipText = "Info";
+            this.infoButton.Click += new System.EventHandler(this.infoButton_Click);
             // 
             // toolStripSeparator5
             // 

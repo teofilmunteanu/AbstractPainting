@@ -120,7 +120,7 @@ namespace ProiectFinal
             mng.reset();
             try
             {
-                if(selectedShape == "")
+                if(selectedShape == null)
                 {
                     throw new Exception("Choose a shape!");
                 }
@@ -132,7 +132,7 @@ namespace ProiectFinal
 
                 if (nrOfShapes < 1 || nrOfShapes > 5000)
                 {
-                    throw new Exception("The number of shapes must be withing the 1-5000 range!");
+                    throw new Exception("The number of shapes must be within the 1-5000 range!");
                 }
 
                 mng.drawShapes(nrOfShapes, selectedShape);
@@ -248,6 +248,11 @@ namespace ProiectFinal
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             e.Graphics.DrawImage(bmp, 0, 0);
+        }
+
+        private void infoButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
