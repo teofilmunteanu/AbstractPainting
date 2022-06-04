@@ -64,9 +64,9 @@ namespace ProiectFinal
         {
             Pen dropdownPen = new Pen(Color.Blue, 3f);
 
-            shapesDropdown.DropDownItems.Add("Linie");
-            shapesDropdown.DropDownItems.Add("Dreptunghi");
-            shapesDropdown.DropDownItems.Add("Elipsa");
+            shapesDropdown.DropDownItems.Add("Line");
+            shapesDropdown.DropDownItems.Add("Rectangle");
+            shapesDropdown.DropDownItems.Add("Elipse");
 
             foreach (ToolStripItem item in shapesDropdown.DropDownItems)
             {
@@ -76,13 +76,13 @@ namespace ProiectFinal
 
                 switch (item.Text)
                 {
-                    case "Linie":
+                    case "Line":
                         shapeG.DrawLine(dropdownPen, r.Location, new Point(r.Width, r.Height));
                         break;
-                    case "Dreptunghi":
+                    case "Rectangle":
                         shapeG.DrawRectangle(dropdownPen, r);
                         break;
-                    case "Elipsa":
+                    case "Elipse":
                         shapeG.DrawEllipse(dropdownPen, r);
                         break;
                 }
@@ -107,7 +107,7 @@ namespace ProiectFinal
             }
             else
             {
-                DialogResult raspuns = MessageBox.Show("Schimbari nesalvate! Inchideti?", "Confirmare", MessageBoxButtons.YesNo);
+                DialogResult raspuns = MessageBox.Show("Unsaved changes? Exit?", "Confirm", MessageBoxButtons.YesNo);
                 if (raspuns == System.Windows.Forms.DialogResult.Yes)
                 {
                     Application.Exit();
@@ -122,17 +122,17 @@ namespace ProiectFinal
             {
                 if(selectedShape == "")
                 {
-                    throw new Exception("Alegeti o forma!");
+                    throw new Exception("Choose a shape!");
                 }
 
                 if(!int.TryParse(ShapeNrTextBox.Text, out nrOfShapes))
                 {
-                    throw new Exception("Introduceti un numar de forme!");
+                    throw new Exception("Enter the number of shapes!");
                 }
 
                 if (nrOfShapes < 1 || nrOfShapes > 5000)
                 {
-                    throw new Exception("Numarul de forme este minim 1 si maxim 5000!");
+                    throw new Exception("The number of shapes must be withing the 1-5000 range!");
                 }
 
                 mng.drawShapes(nrOfShapes, selectedShape);
@@ -151,7 +151,7 @@ namespace ProiectFinal
             try
             {
                 saveFileDialog1.DefaultExt = "jpeg";
-                saveFileDialog1.FileName = "Figura.jpeg";
+                saveFileDialog1.FileName = "Shapes.jpeg";
                 saveFileDialog1.Filter = "JPEG files (*.jpeg)|*.jpeg|All files (*.*)|*.*";
                 saveFileDialog1.FilterIndex = 1;
                 saveFileDialog1.RestoreDirectory = true;
@@ -199,7 +199,7 @@ namespace ProiectFinal
             {
                 while (colorDialog1.Color.ToArgb() == Figura.ShapeColor.ToArgb())
                 {
-                    MessageBox.Show("Formele nu pot fi negre!");
+                    MessageBox.Show("The shapes' interior cannot be black!");
                     colorDialog1.ShowDialog();
                 }
                 fillColor = colorDialog1.Color;
@@ -235,6 +235,19 @@ namespace ProiectFinal
         {
             InkCalculator iq = InkCalculator.getInkCalculator();
             iq.Visible = true;
+        }
+
+        private void printButton_Click(object sender, EventArgs e)
+        {
+            if (printDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                printDocument1.Print();
+            }
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawImage(bmp, 0, 0);
         }
     }
 }

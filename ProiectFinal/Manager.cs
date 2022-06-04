@@ -56,10 +56,12 @@ namespace ProiectFinal
         {
             switch(selectedShape)
             {
-                case "Linie":
+                case "Line":
                     randomLines(nrOfShapes);
                     break;
-                case "Drepthunghi":
+                case "Rectangle":
+                    break;
+                case "Elipse":
                     break;
             }
         }

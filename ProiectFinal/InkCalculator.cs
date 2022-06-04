@@ -31,5 +31,10 @@ namespace ProiectFinal
         {
             instance = null;
         }
+
+        private void InkCalculator_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
