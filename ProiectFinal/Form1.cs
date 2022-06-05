@@ -15,6 +15,7 @@ namespace ProiectFinal
     public partial class Form1 : Form
     {
         Bitmap bmp;
+        Graphics g;
         Manager mng;
 
         bool imageSaved;
@@ -24,7 +25,8 @@ namespace ProiectFinal
 
         Cursor fillCursor;
         Color fillColor;
-        
+        Color bgColor;
+
         public Form1()
         {
             InitializeComponent();
@@ -33,6 +35,7 @@ namespace ProiectFinal
             shapesInitializer();
 
             fillColor = Color.Silver;
+            bgColor = Color.White;
 
             try
             {
@@ -49,13 +52,13 @@ namespace ProiectFinal
 
         void imgInitializer()
         {
-
             //Manager.Bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             //Manager.G = Graphics.FromImage(Manager.Bmp);
-
             bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            mng = new Manager(bmp);
-            mng.reset();
+            g = Graphics.FromImage(bmp);
+            g.Clear(bgColor);
+
+            mng = new Manager();
 
             pictureBox1.Refresh();
         }
@@ -66,13 +69,16 @@ namespace ProiectFinal
 
             shapesDropdown.DropDownItems.Add("Line");
             shapesDropdown.DropDownItems.Add("Rectangle");
+            shapesDropdown.DropDownItems.Add("Triangle");
             shapesDropdown.DropDownItems.Add("Elipse");
+            shapesDropdown.DropDownItems.Add("Bezier");
 
             foreach (ToolStripItem item in shapesDropdown.DropDownItems)
             {
                 Image shapeBmp = new Bitmap(32, 32);
                 Graphics shapeG = Graphics.FromImage(shapeBmp);
                 Rectangle r = new Rectangle(2, 6, shapeBmp.Height - 4, shapeBmp.Height - 12);
+                Point[] pts;
 
                 switch (item.Text)
                 {
@@ -82,8 +88,25 @@ namespace ProiectFinal
                     case "Rectangle":
                         shapeG.DrawRectangle(dropdownPen, r);
                         break;
+                    case "Triangle":
+                        pts = new Point[] { 
+                            new Point(r.X, r.Height), 
+                            new Point((r.X+r.Width)/2, r.Y), 
+                            new Point(r.Width, r.Height) 
+                        };
+                        shapeG.DrawPolygon(dropdownPen, pts);
+                        break;
                     case "Elipse":
                         shapeG.DrawEllipse(dropdownPen, r);
+                        break;
+                    case "Bezier":
+                        pts = new Point[] {
+                            r.Location,
+                            new Point((r.X+r.Width)/3, r.Height),
+                            new Point((r.X+r.Width)*2/3, r.Y),
+                            new Point(r.Width, r.Height)
+                        };
+                        shapeG.DrawBezier(dropdownPen,pts[0], pts[1], pts[2], pts[3]);
                         break;
                 }
 
@@ -117,7 +140,7 @@ namespace ProiectFinal
 
         private void runButton_Click(object sender, EventArgs e)
         {
-            mng.reset();
+            g.Clear(bgColor);
             try
             {
                 if(selectedShape == null)
@@ -135,7 +158,7 @@ namespace ProiectFinal
                     throw new Exception("The number of shapes must be within the 1-5000 range!");
                 }
 
-                mng.drawShapes(nrOfShapes, selectedShape);
+                mng.drawShapes(g, bmp, nrOfShapes, selectedShape);
                 imageSaved = false;
             }
             catch(Exception exc)
@@ -225,7 +248,7 @@ namespace ProiectFinal
         {
             if(pictureBox1.Cursor == fillCursor)
             {
-                mng.fill(e.Location, fillColor);
+                mng.fill(bmp, e.Location, fillColor);
                 imageSaved = false;
                 pictureBox1.Refresh();
             }

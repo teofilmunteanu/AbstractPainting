@@ -22,14 +22,6 @@ namespace ProiectFinal
             shapePen = new Pen(ShapeColor, ShapeWidth);
         }
 
-        public Figura(Color color, float width)
-        {
-            ShapeColor = color;
-            ShapeWidth = width;
-
-            shapePen = new Pen(ShapeColor, ShapeWidth);
-        }
-
         abstract public void deseneaza(Graphics g);
 
         abstract public double daLungime();
@@ -55,24 +47,96 @@ namespace ProiectFinal
         }
     }
 
-    //class Dreptunghi : Figura
-    //{
-    //    Size size;
-    //    public Dreptunghi(Point origin, Point final)
-    //    {
-    //        this.origin = origin;
-    //        size = new Size(Math.Abs(final.X - origin.X), Math.Abs(final.Y - origin.Y));
-    //    }
-         
-    //    override public void deseneaza()
-    //    {
-    //        Rectangle r = new Rectangle(origin, size);
-    //        Manager.g.DrawRectangle(shapePen, r);
-    //    }
-    //}
+    class Dreptunghi : Figura
+    {
+        Size size;
+        public Dreptunghi(Point origin, Point final)
+        {
+            this.origin = origin;
+            size = new Size(Math.Abs(final.X - origin.X), Math.Abs(final.Y - origin.Y));
+        }
 
-    //class Elipsa : Figura
-    //{
+        override public void deseneaza(Graphics g)
+        {
+            Rectangle r = new Rectangle(origin, size);
+            g.DrawRectangle(shapePen, r);
+        }
 
-    //}
+        override public double daLungime()
+        {
+            return 2 * size.Width + 2 * size.Height;
+        }
+    }
+
+    class Triunghi : Figura
+    {
+        Linie l1, l2, l3;
+        Point inter;
+
+        public Triunghi(Point origin, Point inter, Point final)
+        {
+            this.origin = origin;
+            this.inter = inter;
+            this.final = final;
+        }
+
+        override public void deseneaza(Graphics g)
+        {
+            l1 = new Linie(origin, inter);
+            l2 = new Linie(inter, final);
+            l3 = new Linie(final, origin);
+
+            l1.deseneaza(g);
+            l2.deseneaza(g);
+            l3.deseneaza(g);
+        }
+
+        override public double daLungime()
+        {
+            return l1.daLungime() + l2.daLungime() + l3.daLungime();
+        }
+    }
+
+    class Elipsa : Figura
+    {
+        Size size;
+        public Elipsa(Point origin, Point final)
+        {
+            this.origin = origin;
+            size = new Size(Math.Abs(final.X - origin.X), Math.Abs(final.Y - origin.Y));
+        }
+
+        override public void deseneaza(Graphics g)
+        {
+            Rectangle r = new Rectangle(origin, size);
+            g.DrawEllipse(shapePen, r);
+        }
+
+        override public double daLungime()
+        {
+            return 1;
+        }
+    }
+
+    class Bezier : Figura
+    {
+        Point inter1, inter2;
+        public Bezier(Point p1, Point p2, Point p3, Point p4)
+        {
+            origin = p1;
+            inter1 = p2;
+            inter2 = p3;
+            final = p4;
+        }
+
+        override public void deseneaza(Graphics g)
+        {
+            g.DrawBezier(shapePen, origin, inter1, inter2, final);
+        }
+
+        override public double daLungime()
+        {
+            return 0;
+        }
+    }
 }

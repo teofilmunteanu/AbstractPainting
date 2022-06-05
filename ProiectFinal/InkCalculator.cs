@@ -14,10 +14,12 @@ namespace ProiectFinal
     {
         private static InkCalculator? instance = null;
         string sideLength, inkConsumption;
+        Manager mng;
 
         private InkCalculator()
         {
             InitializeComponent();
+            mng = new Manager();
         }
 
         public static InkCalculator getInkCalculator()
@@ -42,7 +44,12 @@ namespace ProiectFinal
             double sL, iC;
             if (double.TryParse(sideLength, out sL) && double.TryParse(inkConsumption, out iC))
             {
-                //Dictionary<char, double> consumptions;
+                Dictionary<char, double> consumptions = mng.calculateInk(sL, iC);
+
+                cyanQty.Text = consumptions['C'].ToString();
+                magentaQty.Text = consumptions['M'].ToString();
+                yellowQty.Text = consumptions['Y'].ToString();
+                blackQty.Text = consumptions['K'].ToString();
             }
         }
         //mng.CalculateInk(); -- singleton
