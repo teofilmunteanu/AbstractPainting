@@ -52,8 +52,6 @@ namespace ProiectFinal
 
         void imgInitializer()
         {
-            //Manager.Bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            //Manager.G = Graphics.FromImage(Manager.Bmp);
             bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             g = Graphics.FromImage(bmp);
             g.Clear(bgColor);
@@ -142,7 +140,7 @@ namespace ProiectFinal
             }
             else
             {
-                DialogResult raspuns = MessageBox.Show("Unsaved changes? Exit?", "Confirm", MessageBoxButtons.YesNo);
+                DialogResult raspuns = MessageBox.Show("Unsaved changes! Exit?", "Confirm", MessageBoxButtons.YesNo);
                 if (raspuns == System.Windows.Forms.DialogResult.Yes)
                 {
                     Application.Exit();

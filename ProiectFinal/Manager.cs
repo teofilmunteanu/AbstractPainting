@@ -9,12 +9,6 @@ namespace ProiectFinal
 {
     class Manager
     {
-        //public static Graphics G { get; set; }
-        //public static Bitmap Bmp { get; set; }
-
-        ///////////////////////////////////////////void randomShapes(int nrOfShapes)
-
-        //static void randomLines(int nrOfShapes)
         void randomLines(Graphics g, Bitmap bmp, int nrOfShapes)
         {
             var rand = new Random();
@@ -133,7 +127,6 @@ namespace ProiectFinal
             }
         }
 
-        //public static void drawShapes(int nrOfShapes, string selectedShape)
         public void drawShapes(Graphics g, Bitmap bmp, int nrOfShapes, string selectedShape)
         {
             switch(selectedShape)
@@ -159,12 +152,11 @@ namespace ProiectFinal
             }
         }
 
-        //static bool inside(Point p)
         bool inside(Bitmap bmp, Point p)
         {
             return p.X >= 0 && p.X < bmp.Width && p.Y >= 0 && p.Y < bmp.Height;
         }
-        //static bool validPoint(Point origin, Point p)
+
         bool validPoint(Bitmap bmp, Point origin, Point p)
         {
             if (bmp.GetPixel(p.X, p.Y) == Figura.ShapeColor ||
@@ -175,7 +167,7 @@ namespace ProiectFinal
                 
             return true;
         }
-        //public static void fill(Point origin, Color fillColor)
+
         public void fill(Bitmap bmp, Point origin, Color fillColor)
         {
             Point[] directions = { new Point(-1, 0), new Point(0, -1), new Point(1, 0), new Point(0, 1) };

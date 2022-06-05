@@ -54,6 +54,5 @@ namespace ProiectFinal
                 blackQty.Text = consumptions['K'].ToString();
             }
         }
-        //mng.CalculateInk(); -- singleton
     }
 }
