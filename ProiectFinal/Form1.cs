@@ -256,7 +256,7 @@ namespace ProiectFinal
 
         private void inkQtyButton_Click(object sender, EventArgs e)
         {
-            InkCalculator iq = InkCalculator.getInkCalculator();
+            InkCalculator iq = InkCalculator.getInkCalculator(bmp);
             iq.Visible = true;
         }
 
@@ -275,7 +275,7 @@ namespace ProiectFinal
 
         private void infoButton_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("sup\n woah");
         }
     }
 }

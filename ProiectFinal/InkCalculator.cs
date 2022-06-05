@@ -15,18 +15,20 @@ namespace ProiectFinal
         private static InkCalculator? instance = null;
         string sideLength, inkConsumption;
         Manager mng;
+        Bitmap bmp;
 
-        private InkCalculator()
+        private InkCalculator(Bitmap bmp)
         {
             InitializeComponent();
             mng = new Manager();
+            this.bmp = bmp;
         }
 
-        public static InkCalculator getInkCalculator()
+        public static InkCalculator getInkCalculator(Bitmap bmp)
         {
             if (instance == null)
             {
-                instance = new InkCalculator();
+                instance = new InkCalculator(bmp);
             }
             return instance;
         }
@@ -38,13 +40,13 @@ namespace ProiectFinal
 
         private void input_TextChanged(object sender, EventArgs e)
         {
-            sideLength = getInkCalculator().printLengthBox.Text.ToString();
-            inkConsumption = getInkCalculator().inkConsumptionBox.Text.ToString();
+            sideLength = instance.printLengthBox.Text.ToString();
+            inkConsumption = instance.inkConsumptionBox.Text.ToString();
 
             double sL, iC;
             if (double.TryParse(sideLength, out sL) && double.TryParse(inkConsumption, out iC))
             {
-                Dictionary<char, double> consumptions = mng.calculateInk(sL, iC);
+                Dictionary<char, double> consumptions = mng.calculateInk(bmp, sL, iC);
 
                 cyanQty.Text = consumptions['C'].ToString();
                 magentaQty.Text = consumptions['M'].ToString();

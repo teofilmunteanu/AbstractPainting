@@ -11,8 +11,6 @@ namespace ProiectFinal
     {
         //public static Graphics G { get; set; }
         //public static Bitmap Bmp { get; set; }
-        static double R, G, B;
-        static double C, M, Y, K;
 
         ///////////////////////////////////////////void randomShapes(int nrOfShapes)
 
@@ -161,10 +159,6 @@ namespace ProiectFinal
                 if(bmp.GetPixel(current.X, current.Y) != Figura.ShapeColor)
                 {
                     bmp.SetPixel(current.X, current.Y, fillColor);
-
-                    R += fillColor.R/255d;
-                    G += fillColor.G/255d;
-                    B += fillColor.B/255d;
                 }
 
                 foreach (Point d in directions)
@@ -178,40 +172,49 @@ namespace ProiectFinal
             }   
         }
 
-        public Dictionary<char, double> calculateInk(double sideLength, double inkConsumption)
+       
+        public Dictionary<char, double> calculateInk(Bitmap bitmap, double sideLength, double inkConsumption)
         {
+            const double cmPerPx = 0.0264583333;
+
+            double C = 0, M = 0, Y = 0, K = 0;
+
+            for(int i=0;i<bitmap.Width;i++)
+            {
+                for(int j=0;j<bitmap.Height;j++)
+                {
+                    Color c = bitmap.GetPixel(i, j);
+                    double R1 = c.R / 255d;
+                    double G1 = c.G / 255d;
+                    double B1 = c.B / 255d;
+                    double K1 = 1 - Math.Max(Math.Max(R1, G1), B1);
+                    
+                    C += (1d - R1 - K1) / (1d - K1);
+                    M += (1d - G1 - K1) / (1d - K1);
+                    Y += (1d - B1 - K1) / (1d - K1);
+                    K += K1;
+                }
+            }
+
             var consumption = new Dictionary<char, double>();
 
-            K = 1 - Math.Max(Math.Max(R, G), B);
-
-            if(K == 1)
-            {
-                C = M = Y = 0;
-            }
-            else
-            {
-                C = (1d - R - K) / (1d - K);
-                M = (1d - G - K) / (1d - K);
-                Y = (1d - B - K) / (1d - K);
-            }
-
-            double S = sideLength * sideLength;
-            double cT = S / inkConsumption;
+            double S = (bitmap.Width * cmPerPx) * (bitmap.Width * cmPerPx); //surface of the bitmap(converted in cm)
+            double cT = S * inkConsumption; //consumption for the entire surface
 
             consumption['C'] = cT * C / (C + M + Y + K);
             consumption['M'] = cT * M / (C + M + Y + K);
             consumption['Y'] = cT * Y / (C + M + Y + K);
             consumption['K'] = cT * K / (C + M + Y + K);
 
-            //consumption['C'] = R;
-            //consumption['M'] = G;
-            //consumption['Y'] = B;
-            //consumption['K'] = K ;
+
+            double convertMultiplier = sideLength / (bitmap.Width * cmPerPx);
+
+            consumption['C'] *= convertMultiplier; 
+            consumption['M'] *= convertMultiplier;
+            consumption['Y'] *= convertMultiplier;
+            consumption['K'] *= convertMultiplier;
 
             return consumption;
         }
-
-
-
     }
 }

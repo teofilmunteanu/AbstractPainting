@@ -114,7 +114,11 @@ namespace ProiectFinal
 
         override public double daLungime()
         {
-            return 1;
+            //Ramanujan
+            double a = size.Width / 2; //semiMajorAxis
+            double b = size.Height / 2;//semiMinorAxis
+            double h = (a - b) * (a - b) / ((a + b) * (a + b));
+            return Math.PI * (a + b) * (1 + 3 * h / (10 + Math.Sqrt(4 - 3 * h)));
         }
     }
 
@@ -134,9 +138,17 @@ namespace ProiectFinal
             g.DrawBezier(shapePen, origin, inter1, inter2, final);
         }
 
-        override public double daLungime()
+        override public double daLungime() //very rough aproximation
         {
-            return 0;
+            Linie line = new Linie(origin, final);
+
+            Linie segment1 = new Linie(origin, inter1);
+            Linie segment2 = new Linie(inter1, inter2);
+            Linie segment3 = new Linie(inter2, final);
+
+            double aprox_length = ((segment1.daLungime() + segment2.daLungime() + segment3.daLungime()) + line.daLungime()) / 2;
+
+            return aprox_length;
         }
     }
 }
