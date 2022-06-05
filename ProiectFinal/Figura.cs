@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace ProiectFinal
 {
-    public abstract class Figura
+    abstract class Figura
     {
         protected Point origin, final;
         protected Pen shapePen;
@@ -28,7 +28,7 @@ namespace ProiectFinal
 
     }
 
-    public class Linie : Figura
+    class Linie : Figura
     {
         public Linie(Point origin, Point final)
         {
