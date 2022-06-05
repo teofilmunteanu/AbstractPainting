@@ -102,8 +102,35 @@ namespace ProiectFinal
 
                 Bezier b = new Bezier(points.ElementAt(0), points.ElementAt(1), points.ElementAt(2), points.ElementAt(3));
                 b.deseneaza(g);
+            }      
+        }
+
+        void randomShapes(Graphics g, Bitmap bmp, int nrOfShapes)
+        {
+            var rand = new Random();
+
+            for (int i = 0; i < nrOfShapes; i++)
+            {
+                int shapeChosen = rand.Next(0, 5);
+                switch (shapeChosen)
+                {
+                    case 0:
+                        randomLines(g, bmp, 1);
+                        break;
+                    case 1:
+                        randomRectangles(g, bmp, 1);
+                        break;
+                    case 2:
+                        randomTriangles(g, bmp, 1);
+                        break;
+                    case 3:
+                        randomElipses(g, bmp, 1);
+                        break;
+                    case 4:
+                        randomBeziers(g, bmp, 1);
+                        break;
+                }
             }
-                
         }
 
         //public static void drawShapes(int nrOfShapes, string selectedShape)
@@ -125,6 +152,9 @@ namespace ProiectFinal
                     break;
                 case "Bezier":
                     randomBeziers(g, bmp, nrOfShapes);
+                    break;
+                case "Random":
+                    randomShapes(g, bmp, nrOfShapes);
                     break;
             }
         }

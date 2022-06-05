@@ -72,6 +72,7 @@ namespace ProiectFinal
             shapesDropdown.DropDownItems.Add("Triangle");
             shapesDropdown.DropDownItems.Add("Elipse");
             shapesDropdown.DropDownItems.Add("Bezier");
+            shapesDropdown.DropDownItems.Add("Random");
 
             foreach (ToolStripItem item in shapesDropdown.DropDownItems)
             {
@@ -107,6 +108,17 @@ namespace ProiectFinal
                             new Point(r.Width, r.Height)
                         };
                         shapeG.DrawBezier(dropdownPen,pts[0], pts[1], pts[2], pts[3]);
+                        break;
+                    case "Random":
+                        pts = new Point[] {
+                            new Point((r.X+r.Width)/4, (r.Y + r.Height)/2),
+                            new Point((r.X+r.Width)/2, r.Y),
+                            new Point((r.X+r.Width)*3/4, (r.Y + r.Height)/2),
+                            new Point((r.X+r.Width)/2, (r.Y + r.Height)*2/3),
+                            new Point((r.X+r.Width)/2, (r.Y + r.Height)*2/3+5),
+                        };
+                        shapeG.DrawCurve(dropdownPen, pts);
+                        shapeG.DrawEllipse(dropdownPen, new Rectangle((r.X + r.Width) / 2 - 2, r.Height+5, 4,4));
                         break;
                 }
 
@@ -275,7 +287,8 @@ namespace ProiectFinal
 
         private void infoButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("sup\n woah");
+            Info info = Info.getInfo();
+            info.Visible = true;
         }
     }
 }
