@@ -21,10 +21,10 @@ namespace ProiectFinal
 
             for (int i= 0; i < nrOfShapes; i++)
             {
-                Point leftPoint = new Point(rand.Next(0, bmp.Height), 0);
-                Point downPoint = new Point(bmp.Height, rand.Next(0, bmp.Width));
-                Point rightPoint = new Point(rand.Next(0, bmp.Height), bmp.Width);
-                Point upPoint = new Point(0, rand.Next(0, bmp.Width));
+                Point leftPoint = new Point(rand.Next(-1, bmp.Height + 2), -1);
+                Point downPoint = new Point(bmp.Height + 2, rand.Next(0, bmp.Width + 2));
+                Point rightPoint = new Point(rand.Next(-1, bmp.Height + 2), bmp.Width + 2);
+                Point upPoint = new Point(-1, rand.Next(-1, bmp.Width + 2));
 
                 List<Point> sides = new List<Point>() { leftPoint, downPoint, rightPoint, upPoint};
 
