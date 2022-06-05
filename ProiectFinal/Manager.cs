@@ -219,9 +219,13 @@ namespace ProiectFinal
                     double B1 = c.B / 255d;
                     double K1 = 1 - Math.Max(Math.Max(R1, G1), B1);
                     
-                    C += (1d - R1 - K1) / (1d - K1);
-                    M += (1d - G1 - K1) / (1d - K1);
-                    Y += (1d - B1 - K1) / (1d - K1);
+                    if(K1 != 1)
+                    {
+                        C += (1d - R1 - K1) / (1d - K1);
+                        M += (1d - G1 - K1) / (1d - K1);
+                        Y += (1d - B1 - K1) / (1d - K1);
+                    }
+                    
                     K += K1;
                 }
             }
